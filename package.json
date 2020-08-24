@@ -1,6 +1,6 @@
 {
   "name": "export-helper",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Nodejs utility to help compile TS modules into sweet es5 & es6 exports",
   "main": "index.js",
   "scripts": {

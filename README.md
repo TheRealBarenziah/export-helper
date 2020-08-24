@@ -1,12 +1,12 @@
 # export-helper  
 
-Rather pretentious name for a tiny **nodejs** module that edits the last line of a file.
+Rather pretentious name for a tiny **nodejs** module that edits the last line of a file.  
 It turns `export = myModule;` into `default export myModule;` between tsc compilations (both ways supported).  
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![Known Vulnerabilities](https://snyk.io/test/github/TheRealBarenziah/export-helper/badge.svg?targetFile=package.json)](https://snyk.io/test/github/TheRealBarenziah/export-helper?targetFile=package.json)
 
 ### Compatibility
-**node** >= 10  
+**node >= 10**  
 
 ### Install  
 `npm install export-helper`  
@@ -28,12 +28,13 @@ $ npmjs/export-helper: "export = constant;" has successfully be replaced by "exp
 This function accepts an option object : 
 ```javascript
 const options = { 
-  mode: "es6", // available options: "es5", "es6"
-  path: "testFile.ts", // path to file (no need ./)
-  silent: false, // pass it to true to silent the console.log; false by default
-  linesToTrim: 1 /* default to 1;
-    you usually don't need to touch this, but if your IDE puts an extra blank line 
-    between your module export and EOF, pass it to 2 and it should do the trick.
+  mode: "es6", // needed. Available options: "es5", "es6"
+  path: "testFile.ts", // needed. Path to file (./ is optionnal)
+  silent: false, // default to false; set to true to remove the log
+  linesToTrim: 1 /* default to 1.
+    You usually don't need this, but in case your IDE insert 
+    an extra blank line between your module export and EOF, 
+    incrementing that value should do the trick.
    */
 };
 ```  
