@@ -4,6 +4,7 @@ Pretentious name for a tiny **nodejs** module that edits the last line of a file
 ### Why ?  
 It basically turns `export = myModule;` into `default export myModule;` between tsc compilations (both ways supported)  
 Use it to compile into the syntax of Old (`require()`, NOT `require().default`) and a valid es6 module, in a single build command.  
+[![https://nodei.co/npm/export-helper.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/export-helper.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/export-helper)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![Known Vulnerabilities](https://snyk.io/test/github/TheRealBarenziah/export-helper/badge.svg?targetFile=package.json)](https://snyk.io/test/github/TheRealBarenziah/export-helper?targetFile=package.json)
 
