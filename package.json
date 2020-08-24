@@ -4,7 +4,7 @@
   "description": "Nodejs utility to help compile TS modules into sweet es5 & es6 exports",
   "main": "index.js",
   "scripts": {
-    "test": "node test.js"
+    "test": "node helper.js"
   },
   "keywords": [
     "export-helper",
