@@ -42,8 +42,8 @@ const options = {
 ```  
 
 ### ... more examples ?
-This is my configuration on the [module](https://github.com/TheRealBarenziah/imgbb-uploader/blob/master) I made this for.  
-I have an utility file updateExport.js:  
+This is the configuration on the [module](https://github.com/TheRealBarenziah/imgbb-uploader/blob/master) I made this for.  
+I have an utility file updateExport.js :  
 ```javascript
 const exportHelper = require("export-helper");
 
@@ -58,10 +58,15 @@ const updateExport = () => {
 
 updateExport();
 ```  
-This is my `npm run build` script:  
-`node rebuild.js && node updateExport.js es5 && tsc -p tsconfig-cjs.json && node updateExport.js es6 && tsc -p tsconfig.json`  
+And this script in my package.json :  
+```json
+{ 
+  ...
+  "npm run build": "node rebuild.js && node updateExport.js es5 && tsc -p tsconfig-cjs.json && node updateExport.js es6 && tsc -p tsconfig.json" 
+}
+```  
 - rebuild.js is a [simple utility](https://github.com/TheRealBarenziah/imgbb-uploader/blob/dev/rebuild.js) that wipes the /lib folder before compilation.  
-- `node updateExport.js es5`: wrapping my module into a function using `process.argv`, I can easily pass arguments to it. Basically it will read the last line of my index file, search for `default` and replace it by `=`. It is that dumb.  
+- `node updateExport.js es5` : I wrapped my module into a function using `process.argv` to easily pass arguments to it.  
 - `tsc -p tsconfig-cjs.json`: I'm calling tsc with [this config file](https://github.com/TheRealBarenziah/imgbb-uploader/blob/dev/tsconfig-cjs.json)  
-- Now that I've compiled a proper cjs version with `module.exports`, I call `node updateExport.js es6` to change back the source code.  
+- Now that I've compiled proper cjs with `module.exports`, I call `node updateExport.js es6` to change the source code once more.  
 - Finally I call tsc to build the es6 module.  
