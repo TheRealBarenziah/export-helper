@@ -28,7 +28,7 @@ const exportHelper = async (options) => {
         const newString = await editCodeString(res, false);
         await append(path, await newString);
         if (!silent) {
-          console.log(`npmjs/export-helper: "${res}" has successfully be replaced by "${newString}" (${path})`)
+          console.log(`npmjs/export-helper: "${res}" has successfully been replaced by "${newString}" (${path})`)
         }
         return null;
       }

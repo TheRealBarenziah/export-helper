@@ -25,7 +25,7 @@ exportHelper({ mode: "es6", path: "testFile.ts" })
 In terminal:  
 ```bash
 $ node helper.js
-$ npmjs/export-helper: "export = constant;" has successfully be replaced by "export default constant;" (testFile.ts)
+$ npmjs/export-helper: "export = constant;" has successfully been replaced by "export default constant;" (testFile.ts)
 ```  
 ### Options
 This function accepts an option object :  
