@@ -1,0 +1,21 @@
+{
+  "name": "export-helper",
+  "version": "0.0.1",
+  "description": "Nodejs utility to help compile TS modules into sweet es5 & es6 exports",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": [
+    "export-helper",
+    "export",
+    "helper",
+    "typescript",
+    "require"
+  ],
+  "author": "TheRealBarenziah",
+  "license": "SEE LICENSE IN TARGARYEN_LICENSE",
+  "dependencies": {
+    "read-last-lines": "^1.7.2"
+  }
+}
