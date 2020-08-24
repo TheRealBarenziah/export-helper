@@ -14,8 +14,16 @@
     "require"
   ],
   "author": "TheRealBarenziah",
-  "license": "SEE LICENSE IN TARGARYEN_LICENSE",
+  "license": "SEE LICENSE IN TARGARYEN_UNLICENSE",
   "dependencies": {
     "read-last-lines": "^1.7.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheRealBarenziah/export-helper.git"
+  },
+  "homepage": "https://github.com/TheRealBarenziah/export-helper#readme",
+  "bugs": {
+    "url": "https://github.com/TheRealBarenziah/export-helper/issues"
   }
 }

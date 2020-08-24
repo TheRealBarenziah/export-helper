@@ -1,7 +1,9 @@
 # export-helper  
 
-Rather pretentious name for a tiny **nodejs** module that edits the last line of a file.  
-It turns `export = myModule;` into `default export myModule;` between tsc compilations (both ways supported).  
+Pretentious name for a tiny **nodejs** module that edits the last line of a file.  
+### Why ?  
+It basically turns `export = myModule;` into `default export myModule;` between tsc compilations (both ways supported)  
+Use it to compile into the syntax of Old (`require()`, NOT `require().default`) and a valid es6 module, in a single build command.  
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![Known Vulnerabilities](https://snyk.io/test/github/TheRealBarenziah/export-helper/badge.svg?targetFile=package.json)](https://snyk.io/test/github/TheRealBarenziah/export-helper?targetFile=package.json)
 
@@ -9,11 +11,11 @@ It turns `export = myModule;` into `default export myModule;` between tsc compil
 **node >= 10**  
 
 ### Install  
-`npm install export-helper`  
+`npm install --save-dev export-helper`  
 
 ### Use  
+Javascript file `helper.js`: 
 ```javascript
-// helper.js
 const exportHelper = require("export-helper");
 
 exportHelper({ mode: "es6", path: "testFile.ts" })
@@ -25,7 +27,7 @@ $ node helper.js
 $ npmjs/export-helper: "export = constant;" has successfully be replaced by "export default constant;" (testFile.ts)
 ```  
 ### Options
-This function accepts an option object : 
+This function accepts an option object :  
 ```javascript
 const options = { 
   mode: "es6", // needed. Available options: "es5", "es6"
@@ -39,13 +41,27 @@ const options = {
 };
 ```  
 
-Interpolate something like the `node helper.js` shown above between them to alter your source code between two `tsc` calls.  
-  
-The goal is to generate stuff that can be imported with either `require("module")` or `import module from "module`.  
-  
-In other words, this is to avoid asking people to `require("module").default` your module when they're just fine with the syntax of Old.  
-  
-Originally built for [another module](https://github.com/TheRealBarenziah/imgbb-uploader/blob/master/tsconfig-cjs.json), this is a link to the tsconfig-cjs.json file.
+### ... more examples ?
+This is my configuration on the [module](https://github.com/TheRealBarenziah/imgbb-uploader/blob/master) I made this for.  
+I have an utility file updateExport.js:  
+```javascript
+const exportHelper = require("export-helper");
 
-# WIP, USE AT YOUR OWN PERIL !!!!!!!!!
-# ... I MEAN IT !!!
+const updateExport = () => {
+  if (process.argv.slice(2)[0] === "es5") {
+    exportHelper({ mode: "es5", path: "src/index.ts" }).then((res) => res);
+  } else if (process.argv.slice(2)[0] === "es6") {
+    exportHelper({ mode: "es6", path: "src/index.ts" }).then((res) => res);
+  } else
+    throw "Oopsie, it seems you forgot to pass either 'es5' or 'es6' as argument !";
+};
+
+updateExport();
+```  
+This is my `npm run build` script:  
+`node rebuild.js && node updateExport.js es5 && tsc -p tsconfig-cjs.json && node updateExport.js es6 && tsc -p tsconfig.json`  
+- rebuild.js is a [simple utility](https://github.com/TheRealBarenziah/imgbb-uploader/blob/dev/rebuild.js) that wipes the /lib folder before compilation.  
+- `node updateExport.js es5`: wrapping my module into a function using `process.argv`, I can easily pass arguments to it. Basically it will read the last line of my index file, search for `default` and replace it by `=`. It is that dumb.  
+- `tsc -p tsconfig-cjs.json`: I'm calling tsc with [this config file](https://github.com/TheRealBarenziah/imgbb-uploader/blob/dev/tsconfig-cjs.json)  
+- Now that I've compiled a proper cjs version with `module.exports`, I call `node updateExport.js es6` to change back the source code.  
+- Finally I call tsc to build the es6 module.  
