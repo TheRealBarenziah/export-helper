@@ -31,7 +31,7 @@ This function accepts an option object :
 ```javascript
 const options = { 
   mode: "es6", // needed. Available options: "es5", "es6"
-  path: "testFile.ts", // needed. Path to file (./ is optionnal)
+  path: "testFile.ts", // needed. Path to file (./ is optional)
   silent: false, // default to false; set to true to remove the log
   linesToTrim: 1 /* default to 1.
     You usually don't need this, but in case your IDE insert 
