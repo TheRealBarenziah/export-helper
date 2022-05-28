@@ -1,4 +1,4 @@
-const readLastLines = require('read-last-lines');
+const readLastLines = require("read-last-lines");
 const trim = require("./trim");
 const append = require("./append");
 const editCodeString = require("./editCodeString");
@@ -20,29 +20,41 @@ const editCodeString = require("./editCodeString");
 const exportHelper = async (options) => {
   const { mode, path, silent = false, linesToTrim = 1 } = { ...options };
 
-  return readLastLines.read(path, linesToTrim)
-    .then(async (res) => {
+  return readLastLines.read(path, linesToTrim).then(async (res) => {
+    const log = (oldString, newString) =>
+      console.log(
+        `npmjs/export-helper: "${oldString.replace(
+          "\n",
+          ""
+        )}" has successfully been replaced by "${newString.replace(
+          "\n",
+          ""
+        )}" (${path})`
+      );
 
-      if (mode === "es5") {
-        await trim(path, linesToTrim);
-        const newString = await editCodeString(res, false);
-        await append(path, await newString);
-        if (!silent) {
-          console.log(`npmjs/export-helper: "${res}" has successfully been replaced by "${newString}" (${path})`)
-        }
-        return null;
-      }
+    let newString;
+    await trim(path, linesToTrim);
 
-      if (mode === "es6") {
-        await trim(path, linesToTrim);
-        const newString = await editCodeString(res, true);
-        await append(path, await newString);
-        if (!silent) {
-          console.log(`npmjs/export-helper: "${res}" has successfully be replaced by "${newString}" (${path})`)
-        }
-        return null;
-      }
-    })
-}
+    if (mode === "es5") {
+      newString = await editCodeString(res, "es5");
+    } else if (mode === "es5:withbrackets") {
+      newString = await editCodeString(res, "es5:withbrackets");
+    } else if (mode === "es6" || mode === "es6:named") {
+      newString = await editCodeString(res, "es6:named");
+    } else if (mode === "es6:default") {
+      newString = await editCodeString(res, "es6:default");
+    } else if (mode === "es6:asDefault") {
+      newString = await editCodeString(res, "es6:asDefault");
+    } else {
+      throw new Error(
+        "'mode' value must be one of: es5, es6, es6:default, es6:named, es6:asDefault"
+      );
+    }
+
+    await append(path, await newString);
+    if (!silent) log(res, newString);
+    return null;
+  });
+};
 
 module.exports = exportHelper;

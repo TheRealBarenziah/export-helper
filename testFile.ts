@@ -1,4 +1,5 @@
-const constant:string = "oooÖ";
+const constant: string = "oooÖ";
+const constant2: string = "Öooo";
 
 /*
                        .,,uod8B8bou,,.
@@ -33,4 +34,4 @@ const constant:string = "oooÖ";
                       `!^"'
 */
 
-export = constant;
+export { constant };
